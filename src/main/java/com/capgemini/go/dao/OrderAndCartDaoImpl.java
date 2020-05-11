@@ -7,6 +7,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+
+import com.capgemini.go.dto.Address;
 import com.capgemini.go.dto.CartDTO;
 import com.capgemini.go.dto.OrderDTO;
 
@@ -92,6 +94,19 @@ public class OrderAndCartDaoImpl implements OrderAndCartDao {
 		Query<OrderDTO> query=currentSession.createQuery("from OrderDTO where order_id=:order_id",OrderDTO.class);
 		query.setParameter("order_id",orderID);
 		return query.getSingleResult();
+	}
+
+
+
+
+
+	@Override
+	public List<Address> getAddressbyID(long userID) {
+		Session currentSession=sessionFactory.getCurrentSession();
+		Query<Address> query=currentSession.createQuery("from Address where user_id=:user_id",Address.class);
+		query.setParameter("user_id",userID);
+		return query.getResultList();
+		
 	}
 
 	

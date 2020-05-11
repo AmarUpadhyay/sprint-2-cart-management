@@ -3,9 +3,20 @@ package com.capgemini.go.dto;
 import java.io.Serializable;
 
 import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-@Embeddable
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+@Entity
+@Table(name="address")
 public class Address implements Serializable{
 	
 	
@@ -61,6 +72,14 @@ public class Address implements Serializable{
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long addressID;
+	@ManyToOne(fetch=FetchType.EAGER,optional=false)
+	@JoinColumn(name="user_id",nullable=false)
+	@OnDelete(action=OnDeleteAction.CASCADE)
+	private User user;
 	@Column(name="houseNO")
 	private int houseNumber;
 	@Column(name="buildingNO")

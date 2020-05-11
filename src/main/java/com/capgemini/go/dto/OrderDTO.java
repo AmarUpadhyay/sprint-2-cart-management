@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.FetchType;
@@ -61,8 +60,18 @@ public class OrderDTO implements Serializable {
 	@LastModifiedDate
 	private Date orderDispatchTime;
 	
-	@Embedded
-	private Address address;
+	@Column(name="houseNO")
+	private int houseNumber;
+	@Column(name="buildingNO")
+	private int buildingNumber;
+	@Column(name="city")
+	private String city;
+	@Column(name="state")
+	private String state;
+	@Column(name="field")
+	private String landmark;
+	@Column(name="zip")
+	private String zip;
 
 	
 	public long getOrderId() {
@@ -135,17 +144,78 @@ public class OrderDTO implements Serializable {
 	}
 
 	
-	public Address getAddress() {
-		return address;
-	}
+	
 
 	
-	public void setAddress(Address address) {
-		this.address = address;
+	
+	public int getHouseNumber() {
+		return houseNumber;
 	}
 
+
+	
+	public void setHouseNumber(int houseNumber) {
+		this.houseNumber = houseNumber;
+	}
+
+
+	
+	public int getBuildingNumber() {
+		return buildingNumber;
+	}
+
+
+	
+	public void setBuildingNumber(int buildingNumber) {
+		this.buildingNumber = buildingNumber;
+	}
+
+
+	
+	public String getCity() {
+		return city;
+	}
+
+
+	
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+
+	public String getState() {
+		return state;
+	}
+
+
+	
+	public void setState(String state) {
+		this.state = state;
+	}
+
+
+	
+	public String getLandmark() {
+		return landmark;
+	}
+
+
+	
+	public void setLandmark(String landmark) {
+		this.landmark = landmark;
+	}
+
+
+	
+	public String getZip() {
+		return zip;
+	}
+
+
+	
 	public OrderDTO(long orderId, User user, String productID, long addressId, boolean orderDispatchStatus,
-			Date orderInitiateTime, Date orderDispatchTime, Address address) {
+			Date orderInitiateTime, Date orderDispatchTime, int houseNumber, int buildingNumber, String city,
+			String state, String landmark, String zip) {
 		super();
 		this.orderId = orderId;
 		this.user = user;
@@ -154,8 +224,19 @@ public class OrderDTO implements Serializable {
 		this.orderDispatchStatus = orderDispatchStatus;
 		this.orderInitiateTime = orderInitiateTime;
 		this.orderDispatchTime = orderDispatchTime;
-		this.address = address;
+		this.houseNumber = houseNumber;
+		this.buildingNumber = buildingNumber;
+		this.city = city;
+		this.state = state;
+		this.landmark = landmark;
+		this.zip = zip;
 	}
+
+
+	public void setZip(String zip) {
+		this.zip = zip;
+	}
+
 
 	public OrderDTO() {
 		super();

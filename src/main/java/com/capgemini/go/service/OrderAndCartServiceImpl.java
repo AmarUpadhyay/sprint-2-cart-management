@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.capgemini.go.dao.OrderAndCartDao;
+import com.capgemini.go.dto.Address;
 import com.capgemini.go.dto.CartDTO;
 import com.capgemini.go.dto.OrderDTO;
 
@@ -64,6 +65,14 @@ public class OrderAndCartServiceImpl implements OrderAndCartService {
 	public OrderDTO getOrderDetails(long orderID) {
 		
 		return orderAndCartDao.getOrderDetails(orderID);
+	}
+
+
+
+	@Override
+	public List<Address> getAddressbyID(long userID) {
+		
+		return orderAndCartDao.getAddressbyID(userID);
 	}
 	
 

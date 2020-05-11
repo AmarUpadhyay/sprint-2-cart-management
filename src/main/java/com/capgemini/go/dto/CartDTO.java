@@ -1,9 +1,10 @@
 package com.capgemini.go.dto;
 
 import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 
@@ -11,8 +12,14 @@ import javax.persistence.Table;
 @Table(name="cart_table")
 public class CartDTO {
 	
-	@EmbeddedId
-	private CartKey cartKey;
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private long cartItemID;
+	@Column(name="product_id")
+	private String product_id;
+	
+	@Column(name="user_id")
+	private long userID;
 	
 	@Column(name="product_quantity")
 	private int quantity;
@@ -21,22 +28,34 @@ public class CartDTO {
 		super();
 	}
 
-	
-	public CartKey getCartKey() {
-		return cartKey;
+	public long getCartItemID() {
+		return cartItemID;
 	}
 
-	
-	public void setCartKey(CartKey cartKey) {
-		this.cartKey = cartKey;
+	public void setCartItemID(long cartItemID) {
+		this.cartItemID = cartItemID;
 	}
 
-	
+	public String getProduct_id() {
+		return product_id;
+	}
+
+	public void setProduct_id(String product_id) {
+		this.product_id = product_id;
+	}
+
+	public long getUserID() {
+		return userID;
+	}
+
+	public void setUserID(long userID) {
+		this.userID = userID;
+	}
+
 	public int getQuantity() {
 		return quantity;
 	}
 
-	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}

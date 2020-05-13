@@ -56,7 +56,7 @@ public class OrderDTO implements Serializable {
 	private Date orderInitiateTime;
 	
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="order_dispatch_time",nullable=false)
+	@Column(name="order_dispatch_time")
 	@LastModifiedDate
 	private Date orderDispatchTime;
 	

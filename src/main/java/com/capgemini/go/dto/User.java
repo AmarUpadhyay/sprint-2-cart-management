@@ -38,7 +38,7 @@ public class User implements Serializable{
 	
 
 	public User(long userID, String userType, String userName, String userPassword, String userEmail, long userPhone,
-			byte flag, CartKey cartKey) {
+			byte flag) {
 		super();
 		this.userID = userID;
 		this.userType = userType;
@@ -47,12 +47,10 @@ public class User implements Serializable{
 		this.userEmail = userEmail;
 		this.userPhone = userPhone;
 		this.flag = flag;
-		//this.cartKey = cartKey;
+		
 	}
 
-	/**@OneToOne(fetch=FetchType.LAZY,mappedBy="user",cascade=CascadeType.ALL)
-	private CartKey cartKey;
-	**/
+	
 		public long getUserID() {
 		return userID;
 	}
@@ -123,16 +121,10 @@ public class User implements Serializable{
 	}
 
 
-	
-	/*
-	 * public CartKey getCartKey() { return cartKey; }
-	 */
 
 
 	
-	/*
-	 * public void setCartKey(CartKey cartKey) { this.cartKey = cartKey; }
-	 */
+	
 
 	
 	

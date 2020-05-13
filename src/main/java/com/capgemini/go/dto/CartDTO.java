@@ -15,6 +15,14 @@ public class CartDTO {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long cartItemID;
+	public CartDTO(long cartItemID, String product_id, long userID, int quantity) {
+		super();
+		this.cartItemID = cartItemID;
+		this.product_id = product_id;
+		this.userID = userID;
+		this.quantity = quantity;
+	}
+
 	@Column(name="product_id")
 	private String product_id;
 	

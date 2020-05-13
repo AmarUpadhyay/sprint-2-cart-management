@@ -1,7 +1,7 @@
 package com.capgemini.go.controller;
 
+import java.util.Arrays;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.capgemini.go.dto.Address;
 import com.capgemini.go.dto.CartDTO;
 import com.capgemini.go.dto.OrderDTO;
 import com.capgemini.go.exception.OrderNotFoundException;
 import com.capgemini.go.exception.ProductNotFoundException;
 import com.capgemini.go.service.OrderAndCartService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 
 @RestController
@@ -33,10 +33,14 @@ public class OrderController {
 		private OrderAndCartService orderAndCartService;
 		
 		@GetMapping("cart-item/{user_id}")
+		@HystrixCommand(fallbackMethod="getFallBackCart")
 		public List<CartDTO> getCartItem(@PathVariable("user_id") long userID) throws ProductNotFoundException{
 			
 			log.info("Fetching Item from Cart...");
 			return orderAndCartService.getCartItem(userID);
+		}
+		public List<CartDTO> getFallBackCart(@PathVariable("user_id") long userID){
+			return Arrays.asList(new CartDTO(0,"No Product in Cart",0,0));
 		}
 		
 		@PostMapping("addItemToCart")
@@ -78,6 +82,7 @@ public class OrderController {
 		}
 		
 		@GetMapping("order-list/{user_id}")
+		@HystrixCommand(fallbackMethod="getFallBackOrder")
 		public List<OrderDTO> getOrderListByID(@PathVariable("user_id") long userID) throws OrderNotFoundException
 		{
 			log.info("Fetching the order list...");
@@ -88,6 +93,10 @@ public class OrderController {
 			}
 			
 			return orders;
+		}
+		public List<OrderDTO> getFallBackOrder(@PathVariable("user_id") long userID){
+			return Arrays.asList(new OrderDTO(0,null,"No Order Available",0,false,
+					null,null,0,0,null,null,null,null));
 		}
 		
 		@GetMapping("order-details/{order_id}")
@@ -117,4 +126,5 @@ public class OrderController {
 			log.info("Fetching the list of Address...");
 			return orderAndCartService.getAddressbyID(userID);
 		}
+		
 }

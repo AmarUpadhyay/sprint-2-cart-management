@@ -19,9 +19,9 @@ public class OrderAndCartDaoImpl implements OrderAndCartDao {
 	private SessionFactory sessionFactory;
 
 	@Override
-	public boolean addItemToCart(CartDTO cart) {
+	public boolean addItemToCart(CartDTO cartItem) {
 		boolean status;
-		sessionFactory.getCurrentSession().save(cart);
+		sessionFactory.getCurrentSession().saveOrUpdate(cartItem);
 		status=true;
 		return status;
 	}
@@ -49,7 +49,7 @@ public class OrderAndCartDaoImpl implements OrderAndCartDao {
 		Session currentSession=sessionFactory.getCurrentSession();
 		Query<CartDTO> query=currentSession.createQuery("from CartDTO where product_id=:product_id",CartDTO.class);
 		query.setParameter("product_id", productID);
-		CartDTO cart=query.uniqueResult();
+		CartDTO cart=query.getSingleResult();
 		currentSession.delete(cart);
 		status=true;
 		return status;

@@ -24,7 +24,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 
 @RestController
 @CrossOrigin(origins="http://localhost:4200")
-@RequestMapping(value="/api/v1")
+@RequestMapping(value="/api/cart-management")
 public class OrderController {
 	
 		private static final Logger log=LoggerFactory.getLogger(OrderController.class);
